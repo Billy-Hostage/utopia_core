@@ -1,0 +1,140 @@
+<mxfile host="Electron" modified="2023-04-29T11:49:51.679Z" agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) draw.io/21.1.2 Chrome/106.0.5249.199 Electron/21.4.3 Safari/537.36" etag="2F94ZsmgQ3tyAjPSqxO6" version="21.1.2" type="device">
+  <diagram name="第 1 页" id="aaaO4I9LjqVrTbrxkaXW">
+    <mxGraphModel dx="1416" dy="818" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1169" pageHeight="827" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="Ewab8ScGLsMR9BW7eMpT-1" value="外部Ticker" style="ellipse;shape=cloud;whiteSpace=wrap;html=1;fontSize=17;" parent="1" vertex="1">
+          <mxGeometry x="30" y="300" width="120" height="80" as="geometry" />
+        </mxCell>
+        <mxCell id="Ewab8ScGLsMR9BW7eMpT-2" value="" style="rounded=0;whiteSpace=wrap;html=1;" parent="1" vertex="1">
+          <mxGeometry x="240" y="40" width="650" height="700" as="geometry" />
+        </mxCell>
+        <mxCell id="Ewab8ScGLsMR9BW7eMpT-4" value="Core&lt;br style=&quot;font-size: 17px;&quot;&gt;Tick Flow" style="text;strokeColor=none;align=center;fillColor=none;html=1;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=17;" parent="1" vertex="1">
+          <mxGeometry x="240" y="40" width="80" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="PI8JAOpw4FT4WwGwads9-5" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" edge="1" parent="1" source="Ewab8ScGLsMR9BW7eMpT-7" target="PI8JAOpw4FT4WwGwads9-4">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="Ewab8ScGLsMR9BW7eMpT-7" value="日期与时间模块&lt;br&gt;&lt;br&gt;更新当前时间" style="shape=parallelogram;perimeter=parallelogramPerimeter;whiteSpace=wrap;html=1;fixedSize=1;fillColor=#f8cecc;strokeColor=#b85450;" parent="1" vertex="1">
+          <mxGeometry x="300" y="190" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="Ewab8ScGLsMR9BW7eMpT-5" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0;entryY=0.5;entryDx=0;entryDy=0;exitX=0.875;exitY=0.5;exitDx=0;exitDy=0;exitPerimeter=0;" parent="1" source="Ewab8ScGLsMR9BW7eMpT-1" target="Ewab8ScGLsMR9BW7eMpT-8" edge="1">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="270" y="340" />
+              <mxPoint x="270" y="130" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="Ewab8ScGLsMR9BW7eMpT-6" value="发起Tick" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];fontSize=19;" parent="Ewab8ScGLsMR9BW7eMpT-5" vertex="1" connectable="0">
+          <mxGeometry x="-0.6605" y="3" relative="1" as="geometry">
+            <mxPoint x="-9" y="-17" as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="PI8JAOpw4FT4WwGwads9-2" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" edge="1" parent="1" source="Ewab8ScGLsMR9BW7eMpT-8" target="Ewab8ScGLsMR9BW7eMpT-7">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="Ewab8ScGLsMR9BW7eMpT-8" value="PreDateTime&lt;br&gt;环节" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;" parent="1" vertex="1">
+          <mxGeometry x="300" y="100" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="PI8JAOpw4FT4WwGwads9-3" value="&lt;h1&gt;Core Tick流程图&lt;/h1&gt;&lt;p&gt;绿色圆角矩形表示&lt;b&gt;可&lt;font color=&quot;#ff0000&quot;&gt;注册&lt;/font&gt;的触发环节&lt;/b&gt;&lt;/p&gt;&lt;p&gt;红色平行四边形为Core核心组件，这些组件内部还有复杂的逻辑&lt;/p&gt;&lt;p&gt;顺序在前的模块如果获取顺序在后的模块的信息，得到的是上一个tick的信息，当前tick还没有处理。&lt;/p&gt;&lt;p&gt;尽管Delta信息在最后才产生，在Tick中途，顺序在后的模块可以直接读取到顺序在前模块Tick后的信息。&lt;/p&gt;&lt;p&gt;Delta信息主要用于差量同步表现层，以及持久化记录。这样的机制也便于开发debug&lt;/p&gt;" style="text;html=1;strokeColor=#666666;fillColor=#f5f5f5;spacing=5;spacingTop=-20;whiteSpace=wrap;overflow=hidden;rounded=0;align=right;fontColor=#333333;horizontal=1;verticalAlign=middle;" vertex="1" parent="1">
+          <mxGeometry x="900" y="430" width="269" height="370" as="geometry" />
+        </mxCell>
+        <mxCell id="PI8JAOpw4FT4WwGwads9-7" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" edge="1" parent="1" source="PI8JAOpw4FT4WwGwads9-4" target="PI8JAOpw4FT4WwGwads9-6">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="PI8JAOpw4FT4WwGwads9-4" value="PreCharacter&lt;br&gt;环节" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;" vertex="1" parent="1">
+          <mxGeometry x="300" y="280" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="PI8JAOpw4FT4WwGwads9-9" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" edge="1" parent="1" source="PI8JAOpw4FT4WwGwads9-6" target="PI8JAOpw4FT4WwGwads9-8">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="PI8JAOpw4FT4WwGwads9-6" value="角色模块&lt;br style=&quot;font-size: 12px;&quot;&gt;&lt;br style=&quot;font-size: 12px;&quot;&gt;更新角色逻辑" style="shape=parallelogram;perimeter=parallelogramPerimeter;whiteSpace=wrap;html=1;fixedSize=1;fillColor=#f8cecc;strokeColor=#b85450;fontSize=12;" vertex="1" parent="1">
+          <mxGeometry x="290" y="370" width="140" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="PI8JAOpw4FT4WwGwads9-11" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" edge="1" parent="1" source="PI8JAOpw4FT4WwGwads9-8" target="PI8JAOpw4FT4WwGwads9-10">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="PI8JAOpw4FT4WwGwads9-8" value="PreOperation&lt;br&gt;环节" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;" vertex="1" parent="1">
+          <mxGeometry x="300" y="460" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="PI8JAOpw4FT4WwGwads9-13" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" edge="1" parent="1" source="PI8JAOpw4FT4WwGwads9-10" target="PI8JAOpw4FT4WwGwads9-12">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="PI8JAOpw4FT4WwGwads9-10" value="行动模块&lt;br style=&quot;font-size: 12px;&quot;&gt;&lt;br style=&quot;font-size: 12px;&quot;&gt;Tick各角色行为" style="shape=parallelogram;perimeter=parallelogramPerimeter;whiteSpace=wrap;html=1;fixedSize=1;fillColor=#f8cecc;strokeColor=#b85450;fontSize=12;" vertex="1" parent="1">
+          <mxGeometry x="300" y="550" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="PI8JAOpw4FT4WwGwads9-15" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" edge="1" parent="1" source="PI8JAOpw4FT4WwGwads9-12" target="PI8JAOpw4FT4WwGwads9-14">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="PI8JAOpw4FT4WwGwads9-12" value="仓库模块&lt;br style=&quot;font-size: 12px;&quot;&gt;&lt;br style=&quot;font-size: 12px;&quot;&gt;处理仓库物品信息" style="shape=parallelogram;perimeter=parallelogramPerimeter;whiteSpace=wrap;html=1;fixedSize=1;fillColor=#f8cecc;strokeColor=#b85450;fontSize=12;" vertex="1" parent="1">
+          <mxGeometry x="300" y="640" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="PI8JAOpw4FT4WwGwads9-17" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" edge="1" parent="1" source="PI8JAOpw4FT4WwGwads9-14" target="PI8JAOpw4FT4WwGwads9-16">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="PI8JAOpw4FT4WwGwads9-14" value="任务模块&lt;br style=&quot;font-size: 12px;&quot;&gt;&lt;br style=&quot;font-size: 12px;&quot;&gt;处理任务树" style="shape=parallelogram;perimeter=parallelogramPerimeter;whiteSpace=wrap;html=1;fixedSize=1;fillColor=#f8cecc;strokeColor=#b85450;fontSize=12;" vertex="1" parent="1">
+          <mxGeometry x="500" y="640" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="PI8JAOpw4FT4WwGwads9-19" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0.5;entryY=1;entryDx=0;entryDy=0;" edge="1" parent="1" source="PI8JAOpw4FT4WwGwads9-16" target="PI8JAOpw4FT4WwGwads9-18">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="PI8JAOpw4FT4WwGwads9-16" value="对话模块&lt;br style=&quot;font-size: 12px;&quot;&gt;&lt;br style=&quot;font-size: 12px;&quot;&gt;处理注册的会话" style="shape=parallelogram;perimeter=parallelogramPerimeter;whiteSpace=wrap;html=1;fixedSize=1;fillColor=#f8cecc;strokeColor=#b85450;fontSize=12;" vertex="1" parent="1">
+          <mxGeometry x="500" y="550" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="PI8JAOpw4FT4WwGwads9-22" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0.5;entryY=1;entryDx=0;entryDy=0;" edge="1" parent="1" source="PI8JAOpw4FT4WwGwads9-18" target="PI8JAOpw4FT4WwGwads9-21">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="PI8JAOpw4FT4WwGwads9-18" value="PreSignal&lt;br&gt;环节" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;" vertex="1" parent="1">
+          <mxGeometry x="500" y="460" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="PI8JAOpw4FT4WwGwads9-24" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0.5;entryY=1;entryDx=0;entryDy=0;" edge="1" parent="1" source="PI8JAOpw4FT4WwGwads9-21" target="PI8JAOpw4FT4WwGwads9-23">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="PI8JAOpw4FT4WwGwads9-21" value="信号模块&lt;br style=&quot;font-size: 12px;&quot;&gt;&lt;br style=&quot;font-size: 12px;&quot;&gt;处理队列中的信号&lt;br&gt;信号即玩家的操作" style="shape=parallelogram;perimeter=parallelogramPerimeter;whiteSpace=wrap;html=1;fixedSize=1;fillColor=#f8cecc;strokeColor=#b85450;fontSize=12;" vertex="1" parent="1">
+          <mxGeometry x="490" y="370" width="140" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="PI8JAOpw4FT4WwGwads9-26" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0.5;entryY=1;entryDx=0;entryDy=0;" edge="1" parent="1" source="PI8JAOpw4FT4WwGwads9-23" target="PI8JAOpw4FT4WwGwads9-25">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="PI8JAOpw4FT4WwGwads9-23" value="PreConsult&lt;br&gt;环节" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;" vertex="1" parent="1">
+          <mxGeometry x="500" y="280" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="PI8JAOpw4FT4WwGwads9-28" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0.5;entryY=1;entryDx=0;entryDy=0;" edge="1" parent="1" source="PI8JAOpw4FT4WwGwads9-25" target="PI8JAOpw4FT4WwGwads9-27">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="PI8JAOpw4FT4WwGwads9-25" value="数据模块&lt;br&gt;&lt;br style=&quot;font-size: 12px;&quot;&gt;检查dirty mark，总结变化的数据&lt;br&gt;此时任何世界状态都不允许改变" style="shape=parallelogram;perimeter=parallelogramPerimeter;whiteSpace=wrap;html=1;fixedSize=1;fillColor=#f8cecc;strokeColor=#b85450;fontSize=12;" vertex="1" parent="1">
+          <mxGeometry x="470" y="190" width="180" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="PI8JAOpw4FT4WwGwads9-27" value="PostConsult&lt;br&gt;环节" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;" vertex="1" parent="1">
+          <mxGeometry x="500" y="100" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="PI8JAOpw4FT4WwGwads9-29" value="" style="strokeWidth=2;html=1;shape=mxgraph.flowchart.annotation_2;align=left;labelPosition=right;pointerEvents=1;" vertex="1" parent="1">
+          <mxGeometry x="620" y="80" width="120" height="100" as="geometry" />
+        </mxCell>
+        <mxCell id="PI8JAOpw4FT4WwGwads9-33" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;startArrow=classic;startFill=1;" edge="1" parent="1" source="PI8JAOpw4FT4WwGwads9-30" target="PI8JAOpw4FT4WwGwads9-32">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="PI8JAOpw4FT4WwGwads9-30" value="写入持久化储存&lt;br&gt;（如果需要）" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;" vertex="1" parent="1">
+          <mxGeometry x="740" y="150" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="PI8JAOpw4FT4WwGwads9-31" value="Delta消息" style="text;strokeColor=none;align=center;fillColor=none;html=1;verticalAlign=middle;whiteSpace=wrap;rounded=0;" vertex="1" parent="1">
+          <mxGeometry x="620" y="100" width="60" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="PI8JAOpw4FT4WwGwads9-32" value="持久化I/O" style="shape=cylinder3;whiteSpace=wrap;html=1;boundedLbl=1;backgroundOutline=1;size=15;" vertex="1" parent="1">
+          <mxGeometry x="770" y="260" width="60" height="80" as="geometry" />
+        </mxCell>
+        <mxCell id="PI8JAOpw4FT4WwGwads9-36" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0;entryY=0.5;entryDx=0;entryDy=0;entryPerimeter=0;" edge="1" parent="1" source="PI8JAOpw4FT4WwGwads9-34" target="PI8JAOpw4FT4WwGwads9-35">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="PI8JAOpw4FT4WwGwads9-34" value="发送Delta给表现层&lt;br&gt;（如果需要）" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;" vertex="1" parent="1">
+          <mxGeometry x="740" y="50" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="PI8JAOpw4FT4WwGwads9-35" value="&lt;br&gt;&lt;br&gt;表现层" style="shape=note;whiteSpace=wrap;html=1;backgroundOutline=1;darkOpacity=0.05;size=27;" vertex="1" parent="1">
+          <mxGeometry x="940" y="40" width="60" height="80" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>

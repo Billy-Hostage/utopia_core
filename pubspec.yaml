@@ -1,0 +1,16 @@
+name: utopia_core
+description: The core for Project Utopia's backend part.
+version: 0.0.1
+repository: https://github.com/Billy-Hostage/utopia_core
+
+environment:
+  sdk: '>=2.19.6 <3.0.0'
+
+dev_dependencies:
+  lints: ^2.0.0
+  test: ^1.21.0
+
+
+dependencies:
+  json_annotation: ^4.8.0
+  path: ^1.8.3
