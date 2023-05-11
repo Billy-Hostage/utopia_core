@@ -1,13 +1,11 @@
 // Billy-Hostage 2023
 
-import 'package:utopia_core/src/modules/logging/logging_module.dart';
-
 import '../utopia_world.dart';
 
 /// The base class for all modules
 /// provides save/load functionality interface
 abstract class ModuleBase {
-  UtopiaWorld _world;
+  final UtopiaWorld _world;
   UtopiaWorld get world => _world;
 
   ModuleBase(UtopiaWorld w) : _world = w;

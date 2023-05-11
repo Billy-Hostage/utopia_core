@@ -1,5 +1,6 @@
 // Billy-Hostage 2023
 
 class StagedEventRecord {
-  String _identifier = "Stub";
+  final String _identifier = "Stub";
+  String get indentifier => _identifier;
 }

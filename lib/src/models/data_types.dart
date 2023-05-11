@@ -80,7 +80,7 @@ class LocalizableString {
 }
 
 class LocalizableStringList {
-  List<LocalizableString> _localizables;
+  final List<LocalizableString> _localizables;
   List<LocalizableString> get localizables => _localizables;
   final LoggingModule _lm;
   final String _uid;

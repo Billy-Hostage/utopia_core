@@ -2,7 +2,7 @@
 
 import 'dart:io';
 
-import 'package:utopia_core/src/models/data_types.dart';
+import '../../models/data_types.dart';
 
 import './library_utils.dart';
 import '../utopia_module_base.dart';
@@ -26,11 +26,7 @@ class LibraryModule extends ModuleBase {
         localeJsonContent: localeJsonContent);
 
     logInfo(
-        "Exp idf zhhans: ${expModel.lName.getPreferredLocaleString([
-              I18nLanguage.zhhans
-            ])} enus: ${expModel.lName.getPreferredLocaleString([
-              I18nLanguage.enus
-            ])}",
+        "Exp idf: ${expModel.lName.getPreferredLocaleString(world.prefrence.preferredLangList)}",
         "test");
   }
 

@@ -5,6 +5,7 @@ import '../utopia_module_base.dart';
 class LoggingModule extends ModuleBase {
   LoggingModule(super.w);
 
+  @override
   void logError(String message, String src) {
     // TODO Record the error
     final String t = DateTime.now().toIso8601String();
@@ -12,6 +13,7 @@ class LoggingModule extends ModuleBase {
     print("$t {$worldName} [$src] Error: $message");
   }
 
+  @override
   void logWarning(String message, String src) {
     // TODO Record the warning
     final String t = DateTime.now().toIso8601String();
@@ -19,6 +21,7 @@ class LoggingModule extends ModuleBase {
     print("$t {$worldName} [$src] Warn: $message");
   }
 
+  @override
   void logInfo(String message, String src) {
     // TODO Record the info
     final String t = DateTime.now().toIso8601String();

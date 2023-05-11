@@ -4,6 +4,7 @@ import 'modules/sem/staged_event_module.dart';
 import 'modules/library/library_module.dart';
 import 'modules/logging/logging_module.dart';
 import 'modules/time/time_module.dart';
+import 'modules/prefrences/prefrences_module.dart';
 
 /// The general manager class for the entire world instance.
 /// Other modules can get all other interfaces for the world in here.
@@ -11,7 +12,7 @@ import 'modules/time/time_module.dart';
 /// This class is usually used with other wrapper classes or routing systems.
 class UtopiaWorld {
   // Basic Informations
-  String _worldName = "placeholder";
+  final String _worldName;
   String get worldName => _worldName;
   final DateTime _creationTime;
   DateTime get creationTime => _creationTime;
@@ -25,9 +26,12 @@ class UtopiaWorld {
   // Submodules
   late StagedEventModule _sem;
   late LibraryModule _library;
+  LibraryModule get lib => _library;
   late LoggingModule _logging;
   LoggingModule get lm => _logging; // this can be exposed
   late TimeModule _time;
+  late PrefrencesModule _prefrence;
+  PrefrencesModule get prefrence => _prefrence;
 
   /// Create world constructor
   /// Brand new world, no resume
@@ -38,10 +42,16 @@ class UtopiaWorld {
         _creationTime = DateTime.now() {
     // TODO More Module Initialization below
     // TODO After all initialization, print out debug information
-    _logging = LoggingModule(this);
 
-    _sem = StagedEventModule(this);
+    // INIT PHRASE 1
+    _logging = LoggingModule(this);
+    _prefrence = PrefrencesModule(this);
+
+    // INIT PHRASE 2
     _library = LibraryModule(this, expPath);
+
+    // INIT PHRASE 3
+    _sem = StagedEventModule(this);
     _time = TimeModule(this);
   }
 
@@ -94,5 +104,12 @@ class UtopiaWorld {
     // TODO: Lastly, send consult message to ui/frontend/console or whatever.
 
     _logging.logInfo("Tick $_tickCounter Done.", "UtopiaWorld/tickExt");
+  }
+
+  void updateAgreedTickIntervalMs(
+    int newValue,
+    /* Reason */
+  ) {
+    _agreedTickIntervalMs = newValue;
   }
 }
