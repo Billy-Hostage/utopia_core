@@ -63,6 +63,7 @@ class ExperienceModel extends ExperienceModelBase {
 
     _claimedFeatures = List<String>.from(baseJsonObject["claimedFeatures"]);
 
+    _supportedLanguages = [];
     List<String> supportedLangStrings =
         List<String>.from(baseJsonObject["supportLangs"]);
     // Parse lang
