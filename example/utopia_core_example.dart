@@ -1,40 +1,17 @@
-// Currently useless
+// Billy-Hostage
 
-abstract class AbA {
-  AbA.con() {
-    print("AbA::con");
-    testFunc1();
+// TODO make this a debug-friendly cli interface for utopia core
+
+import 'package:utopia_core/utopia_core.dart';
+
+void simulateTickPass(UtopiaWorld w, int ticks) {
+  for (int i = 0; i < ticks; ++i) {
+    w.tickExt();
   }
-
-  void testFunc1() {
-    print("AbA::func1");
-  }
-
-  void testFunc2();
-
-  bool get testBool => false;
-}
-
-class B extends AbA {
-  B.con() : super.con() {
-    print("B::con $testBool");
-  }
-
-  @override
-  void testFunc1() {
-    print("B::func1");
-  }
-
-  @override
-  void testFunc2() {
-    print("B::func2");
-  }
-
-  @override
-  bool get testBool => true;
 }
 
 void main() {
-  print('awesome!');
-  final b = B.con();
+  UtopiaWorld worldToTest =
+      UtopiaWorld.newWorld("TestLand", r"E:\utopia\utopia-demo-experience");
+  simulateTickPass(worldToTest, 5);
 }

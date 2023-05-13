@@ -9,3 +9,6 @@ pubspec.lock
 # drawio temp files
 graph/*.bkp
 graph/*.dtmp
+
+# local compiled files
+example/*.exe

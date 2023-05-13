@@ -63,9 +63,10 @@ class ExperienceModel extends ExperienceModelBase {
 
     _claimedFeatures = List<String>.from(baseJsonObject["claimedFeatures"]);
 
-    _supportedLanguages = [];
     List<String> supportedLangStrings =
         List<String>.from(baseJsonObject["supportLangs"]);
+    assert(supportedLangStrings.isNotEmpty);
+    _supportedLanguages = [];
     // Parse lang
     for (var i = 0; i < supportedLangStrings.length; i++) {
       _supportedLanguages.add(codeToI18n(supportedLangStrings[i], lm));
