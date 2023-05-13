@@ -13,7 +13,7 @@ void main() {
     setUp(() {
       // Create world
       worldToTest =
-          UtopiaWorld.newWorld("TestLand", r"D:\work\utopia-demo-experience");
+          UtopiaWorld.newWorld("TestLand", r"E:\utopia\utopia-demo-experience");
     });
 
     test('Test Creation', () {

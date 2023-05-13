@@ -1,50 +1,50 @@
 // Billy-Hostage 2023
 
-import 'dart:convert';
-
+import '../experience_model_base.dart';
 import '../data_types.dart';
 import '../../modules/logging/logging_module.dart';
+import '../../general_utils.dart';
 
-class ItemModel {
-  String _id = "placeholder";
-  String get id => _id;
-  List<String> _flags = <String>[];
-  List<String> get flags => _flags;
-  List<String> _tags = <String>[];
+class ItemModel extends ExperienceModelBase {
+  ItemModel.fromFsJson(super.fsJsonAsset, super.lm) : super.fromFsJson();
+  ItemModel.fromFsJsonCore(super.fsJsonAsset, super.lm)
+      : super.fromFsJsonCore();
+  @override
+  bool get requireLocaleJson => true;
+
+  // Fields
+  late final List<String> _tags;
   List<String> get tags => _tags;
-  dynamic _additionalInfo = {};
+  late final dynamic _additionalInfo;
   dynamic get additionalInfo => _additionalInfo;
-  int _maxStackCount = 16;
+  late final int _maxStackCount;
   int get maxStackCount => _maxStackCount;
+  late final int _maxOwnCount;
+  int get maxOwnCount => _maxOwnCount;
 
-  final LocalizableString _name;
-  final LocalizableString _desc;
+  LocalizableString? _name;
+  LocalizableString? get name => _name;
+  LocalizableString? _desc;
+  LocalizableString? get desc => _desc;
 
-  ItemModel.fromJson(String uid, String baseJsonContent, LoggingModule lm,
-      {Map<I18nLanguage, String>? localeJsonContent})
-      : _name = LocalizableString("$uid:name", lm),
-        _desc = LocalizableString("$uid:desc", lm) {
-    var decodeBaseJson = jsonDecode(baseJsonContent);
-    assert(decodeBaseJson is Map);
+  @override
+  void deserializeFromJsonCore(baseJsonObject, LoggingModule lm) {
+    _tags = safeGetFieldFromMap(baseJsonObject, "tags", []);
+    _additionalInfo = safeGetFieldFromMap(baseJsonObject, "additionalInfo", []);
+    _maxStackCount = safeGetFieldFromMap(baseJsonObject, "maxStackCount", 64);
+    _maxOwnCount = safeGetFieldFromMap(baseJsonObject, "maxOwnCount", -1);
+  }
 
-    // setup members
-    _id = decodeBaseJson["id"];
-    _flags = decodeBaseJson["flags"];
-    _tags = decodeBaseJson["tags"];
-    _additionalInfo = decodeBaseJson["additionalInfo"];
-    _maxStackCount = decodeBaseJson["maxStackCount"];
-
-    // load localeJson
-    if (localeJsonContent == null) {
-      lm.logWarning(
-          "Item $uid has no localeJson. Plz check.", "ItemModel/fromJson");
-    } else {
-      localeJsonContent.forEach((locale, json) {
-        final localeJsonObj = jsonDecode(json);
-        assert(localeJsonObj is Map);
-        _name.addLocale(locale, localeJsonObj["name"]);
-        _desc.addLocale(locale, localeJsonObj["desc"]);
-      });
-    }
+  @override
+  void deserializeFromJsonFull(baseJsonObject,
+      Map<I18nLanguage, dynamic> localeJsonObjects, LoggingModule lm) {
+    _name = LocalizableString("$assetName:name", lm);
+    _desc = LocalizableString("$assetName:desc", lm);
+    localeJsonObjects.forEach((locale, localeJsonObj) {
+      _name?.addLocale(locale,
+          safeGetFieldFromMap(localeJsonObj, "name", "LOCALE_NOT_FOUND:name"));
+      _desc?.addLocale(locale,
+          safeGetFieldFromMap(localeJsonObj, "desc", "LOCALE_NOT_FOUND:desc"));
+    });
   }
 }

@@ -2,9 +2,10 @@
 
 import 'dart:io';
 import 'package:path/path.dart' as path;
-import 'package:utopia_core/src/modules/logging/logging_module.dart';
+import '../logging/logging_module.dart';
 
-import '../../models/data_types.dart' show I18nLanguage, codeToI18n;
+import '../../models/data_types.dart'
+    show FileSystemJSONAsset, I18nLanguage, codeToI18n;
 
 /// Returns all ExperienceJsons.
 /// 0 is base json, others are locale specific.
@@ -29,6 +30,58 @@ List<String> getExperienceJsonsPath(String experienceBasePath) {
   }
 
   return out;
+}
+
+FileSystemJSONAsset? getAssetJsonsFileSystem(
+    String relativeAssetPath, String expPathBase,
+    {LoggingModule? lm, bool seachLocaleJson = true}) {
+  final String fullJsonAssetPath = path.join(expPathBase, relativeAssetPath);
+  final String assetBaseName = path.basenameWithoutExtension(relativeAssetPath);
+
+  // determin the JSON asset is flat or grouoped layout
+
+  final File possibleFlatBaseJson = File("$fullJsonAssetPath.json");
+  if (possibleFlatBaseJson.existsSync()) {
+    // Consider it flat
+    final FileSystemJSONAsset out = FileSystemJSONAsset(
+        name: relativeAssetPath, baseJsonFile: possibleFlatBaseJson);
+
+    // Load all locale jsons
+    if (seachLocaleJson) {
+      final fEntries = possibleFlatBaseJson.parent
+          .listSync(recursive: false, followLinks: false)
+          .whereType<File>();
+      for (var file in fEntries) {
+        final fileBasenameNoExt = path.basenameWithoutExtension(file.path);
+        if (!fileBasenameNoExt.startsWith(assetBaseName) ||
+            fileBasenameNoExt == assetBaseName) {
+          continue;
+        }
+        final splitTemp = fileBasenameNoExt.split(".");
+        assert(splitTemp.length == 2);
+        out.regiserLocaleJson(codeToI18n(splitTemp[1], lm), file);
+      }
+    }
+
+    return out;
+  }
+
+  final File possibleGroupedBaseJson = File("$fullJsonAssetPath/.json");
+  if (possibleGroupedBaseJson.existsSync()) {
+    // Consider it grouped
+    final FileSystemJSONAsset out = FileSystemJSONAsset(
+        name: relativeAssetPath, baseJsonFile: possibleGroupedBaseJson);
+    if (seachLocaleJson) {
+      // TODO get locale jsons for groped json asset.
+    }
+    return out;
+  }
+
+  if (lm != null) {
+    lm.logError("Failed to locate json asset $fullJsonAssetPath in filesystem.",
+        "lib_utils/getAssetJsonsFileSystem");
+  }
+  return null;
 }
 
 I18nLanguage getI18nFromFilePath(String filePath, LoggingModule lm) {

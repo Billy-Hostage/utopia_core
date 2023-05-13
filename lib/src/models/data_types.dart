@@ -1,6 +1,25 @@
 // Billy-Hostage 2023
 
+import 'dart:io';
 import '../modules/logging/logging_module.dart';
+
+class FileSystemJSONAsset {
+  final String name;
+  final File baseJsonFile;
+  final Map<I18nLanguage, File> _localeJsonFiles;
+  Map<I18nLanguage, File> get localeJsonFiles => _localeJsonFiles;
+
+  FileSystemJSONAsset({required this.name, required this.baseJsonFile})
+      : _localeJsonFiles = {};
+
+  void regiserLocaleJson(I18nLanguage locale, File file) {
+    if (_localeJsonFiles.containsKey(locale)) {
+      // error here
+      throw Exception("This locale has already been registered");
+    }
+    _localeJsonFiles[locale] = file;
+  }
+}
 
 enum I18nLanguage {
   enus,
@@ -12,7 +31,7 @@ enum I18nLanguage {
   //TODO more
 }
 
-I18nLanguage codeToI18n(String code, LoggingModule lm) {
+I18nLanguage codeToI18n(String code, LoggingModule? lm) {
   final ccode = code.toLowerCase().replaceAll(RegExp('_'), '');
   switch (ccode) {
     case 'enus':
@@ -26,7 +45,7 @@ I18nLanguage codeToI18n(String code, LoggingModule lm) {
     case 'zhhant':
       return I18nLanguage.zhhant;
   }
-  lm.logError("Unknown languagecode $code", "types/codeToI18n");
+  if (lm != null) lm.logError("Unknown languagecode $code", "types/codeToI18n");
   return I18nLanguage.unknown;
 }
 
