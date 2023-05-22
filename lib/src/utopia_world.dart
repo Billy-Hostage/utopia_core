@@ -5,6 +5,7 @@ import 'modules/library/library_module.dart';
 import 'modules/logging/logging_module.dart';
 import 'modules/time/time_module.dart';
 import 'modules/prefrences/prefrences_module.dart';
+import 'modules/character/character_module.dart';
 
 /// The general manager class for the entire world instance.
 /// Other modules can get all other interfaces for the world in here.
@@ -25,11 +26,15 @@ class UtopiaWorld {
 
   // Submodules
   late StagedEventModule _sem;
+  StagedEventModule get sem => _sem;
   late LibraryModule _library;
   LibraryModule get lib => _library;
   late LoggingModule _logging;
-  LoggingModule get lm => _logging; // this can be exposed
+  LoggingModule get lm => _logging;
+  late CharacterModule _character;
+  CharacterModule get character => _character;
   late TimeModule _time;
+  TimeModule get time => _time;
   late PrefrencesModule _prefrence;
   PrefrencesModule get prefrence => _prefrence;
 
@@ -49,10 +54,12 @@ class UtopiaWorld {
 
     // INIT PHRASE 2
     _library = LibraryModule(this, expPath);
+    // TODO we need a persistence manager here
 
     // INIT PHRASE 3
     _sem = StagedEventModule(this);
     _time = TimeModule(this);
+    _character = CharacterModule(this);
   }
 
   /// External timers/tickers should call this.
@@ -65,17 +72,13 @@ class UtopiaWorld {
     _sem.triggerStageEvents(EventStage.preDateTime);
 
     // Tick DataTimeModule
-    _time.tick();
+    _time.tick(_agreedTickIntervalMs);
 
     // StageEvent PreCharacter
     _sem.triggerStageEvents(EventStage.preCharacter);
 
     // TODO: Tick CharacterModule
-
-    // StageEvent PreOperation
-    _sem.triggerStageEvents(EventStage.preOperation);
-
-    // TODO: Tick OperationModule
+    _character.tick(_agreedTickIntervalMs);
 
     // TODO: Tick InventoryModule
 

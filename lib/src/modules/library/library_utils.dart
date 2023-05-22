@@ -58,7 +58,11 @@ FileSystemJSONAsset? getAssetJsonsFileSystem(
           continue;
         }
         final splitTemp = fileBasenameNoExt.split(".");
-        assert(splitTemp.length == 2);
+        if (splitTemp.length != 2) {
+          lm?.logError("Unexpected naming of flat json file at ${file.path}",
+              "lib_utils/getAssetJsonsFileSystem");
+          continue;
+        }
         out.regiserLocaleJson(codeToI18n(splitTemp[1], lm), file);
       }
     }
@@ -72,7 +76,22 @@ FileSystemJSONAsset? getAssetJsonsFileSystem(
     final FileSystemJSONAsset out = FileSystemJSONAsset(
         name: relativeAssetPath, baseJsonFile: possibleGroupedBaseJson);
     if (seachLocaleJson) {
-      // TODO get locale jsons for groped json asset.
+      // get locale jsons for groped json asset.
+      final fEntries = possibleGroupedBaseJson.parent
+          .listSync(recursive: false, followLinks: false)
+          .whereType<File>();
+      for (var file in fEntries) {
+        final basename = path.basename(file.path);
+        if (basename == ".json") continue;
+        final splitTemp = basename.split('.');
+        if (splitTemp.length != 2) {
+          lm?.logError("Unexpected naming of grouped json file at ${file.path}",
+              "lib_utils/getAssetJsonsFileSystem");
+          continue;
+        }
+        // register locale json
+        out.regiserLocaleJson(codeToI18n(splitTemp[0], lm), file);
+      }
     }
     return out;
   }

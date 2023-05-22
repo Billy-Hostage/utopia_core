@@ -5,28 +5,26 @@ import '../utopia_world.dart';
 /// The base class for all modules
 /// provides save/load functionality interface
 abstract class ModuleBase {
-  final UtopiaWorld _world;
-  UtopiaWorld get world => _world;
+  final UtopiaWorld world;
 
-  ModuleBase(UtopiaWorld w) : _world = w;
+  ModuleBase(this.world);
 
   //TODO fill here
   void describe();
 
-  void tick() {
-    final typeName = runtimeType.toString();
-    logInfo("Stub: $typeName Ticking", "ModuleBase/tick");
+  void tick(int tickIntervalMs) {
+    throw UnsupportedError("${runtimeType.toString()} cannot tick.");
   }
 
   void logInfo(String message, String src) {
-    _world.lm.logInfo(message, src);
+    world.lm.logInfo(message, src);
   }
 
   void logWarning(String message, String src) {
-    _world.lm.logWarning(message, src);
+    world.lm.logWarning(message, src);
   }
 
   void logError(String message, String src) {
-    _world.lm.logError(message, src);
+    world.lm.logError(message, src);
   }
 }

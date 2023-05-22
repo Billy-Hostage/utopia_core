@@ -1,3 +1,4 @@
+import 'package:utopia_core/src/models/experience/item.dart';
 import 'package:utopia_core/utopia_core.dart';
 import 'package:test/test.dart';
 
@@ -23,6 +24,20 @@ void main() {
     test('Test Tick', () {
       simulateTickPass(worldToTest!, 10);
       expect(worldToTest?.tickCounter, 10);
+    });
+
+    test('Item Load', () {
+      final outAsset = worldToTest?.lib.getAsset<ItemModel>(
+          'items/resources/wood', (worldToTest?.lm)!, ItemModel.fromFsJson,
+          loadLocaleJson: true);
+      expect(outAsset, isNotNull);
+      expect(outAsset!.requireLocaleJson, isTrue);
+      expect(outAsset.isFullLoad, isTrue);
+      print(
+          "Load Item ${outAsset.assetName}. item name is ${outAsset.name!.getPreferredLocaleString([
+            I18nLanguage.zhhans,
+            I18nLanguage.enus
+          ])}. basename ${outAsset.assetBaseName}");
     });
   });
 }

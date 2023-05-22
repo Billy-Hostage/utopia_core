@@ -41,9 +41,9 @@ class LibraryModule extends ModuleBase {
   /// We need a cache pool.
   T? getAsset<T extends ExperienceModelBase>(String assetName, LoggingModule lm,
       T Function(FileSystemJSONAsset fsJsonAsset, LoggingModule lm) constructor,
-      {bool loadLocaleJson = false}) {
+      {bool loadLocaleJson = true}) {
     // ?Search from pool?
-    final expFsJson = getAssetJsonsFileSystem("experience", expPathBase,
+    final expFsJson = getAssetJsonsFileSystem(assetName, expPathBase,
         seachLocaleJson: loadLocaleJson);
     if (expFsJson != null) {
       try {
@@ -55,6 +55,8 @@ class LibraryModule extends ModuleBase {
         lm.logError(e.toString(), "LibraryModule/getAsset");
         return null;
       }
+    } else {
+      lm.logError("Asset $assetName Not Found.", "LibraryModule/getAsset");
     }
     return null;
   }

@@ -17,8 +17,6 @@ class ItemModel extends ExperienceModelBase {
   List<String> get tags => _tags;
   late final dynamic _additionalInfo;
   dynamic get additionalInfo => _additionalInfo;
-  late final int _maxStackCount;
-  int get maxStackCount => _maxStackCount;
   late final int _maxOwnCount;
   int get maxOwnCount => _maxOwnCount;
 
@@ -29,9 +27,8 @@ class ItemModel extends ExperienceModelBase {
 
   @override
   void deserializeFromJsonCore(baseJsonObject, LoggingModule lm) {
-    _tags = safeGetFieldFromMap(baseJsonObject, "tags", []);
+    _tags = List<String>.from(safeGetFieldFromMap(baseJsonObject, "tags", []));
     _additionalInfo = safeGetFieldFromMap(baseJsonObject, "additionalInfo", []);
-    _maxStackCount = safeGetFieldFromMap(baseJsonObject, "maxStackCount", 64);
     _maxOwnCount = safeGetFieldFromMap(baseJsonObject, "maxOwnCount", -1);
   }
 

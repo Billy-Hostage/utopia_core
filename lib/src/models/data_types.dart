@@ -32,7 +32,7 @@ enum I18nLanguage {
 }
 
 I18nLanguage codeToI18n(String code, LoggingModule? lm) {
-  final ccode = code.toLowerCase().replaceAll(RegExp('_'), '');
+  final ccode = code.toLowerCase().replaceAll(RegExp(r'[_-]'), '');
   switch (ccode) {
     case 'enus':
       return I18nLanguage.enus;

@@ -1,5 +1,6 @@
 // Billy-Hostage 2023
 
+import 'dart:io';
 import '../utopia_module_base.dart';
 
 class LoggingModule extends ModuleBase {
@@ -10,7 +11,7 @@ class LoggingModule extends ModuleBase {
     // TODO Record the error
     final String t = DateTime.now().toIso8601String();
     final worldName = world.worldName;
-    print("$t {$worldName} [$src] Error: $message");
+    stderr.writeln("$t {$worldName} [$src] Error: $message");
   }
 
   @override

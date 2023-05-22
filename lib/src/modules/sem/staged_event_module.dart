@@ -8,7 +8,6 @@ import '../utopia_module_base.dart';
 enum EventStage {
   preDateTime,
   preCharacter,
-  preOperation,
   preSignal,
   preConsult,
   postConsult
@@ -21,7 +20,8 @@ class StagedEventModule extends ModuleBase {
     //TODO: actually implement SEM system.
 
     final stateName = newStage.toString();
-    logInfo("Stub: Trigger $stateName", "StagedEventModule/triggerStageEvents");
+    logWarning(
+        "Stub: Trigger $stateName", "StagedEventModule/triggerStageEvents");
   }
 
   @override

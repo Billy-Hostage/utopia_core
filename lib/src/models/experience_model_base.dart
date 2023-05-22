@@ -1,6 +1,7 @@
 // Billy-Hostage 2023
 
 import 'dart:convert' show jsonDecode;
+import 'package:path/path.dart' as path;
 
 import './data_types.dart' show FileSystemJSONAsset, I18nLanguage;
 import '../modules/logging/logging_module.dart';
@@ -8,6 +9,7 @@ import '../modules/logging/logging_module.dart';
 abstract class ExperienceModelBase {
   final String _assetName;
   String get assetName => _assetName;
+  String get assetBaseName => path.basenameWithoutExtension(_assetName);
 
   bool get requireLocaleJson => false;
   final bool _isFullLoad;
@@ -26,7 +28,8 @@ abstract class ExperienceModelBase {
     if (fsJsonAsset.localeJsonFiles.isEmpty) {
       lm.logWarning("${fsJsonAsset.name} has no localeJson. Plz check.",
           "ExperienceModelBase/fromFsJson");
-      assert(!requireLocaleJson);
+      assert(!requireLocaleJson,
+          "${runtimeType.toString()}.fromFsJson needs locale jsons to load.\n If you want to load core info only, please specify fromFsJsonCore Constructor instead.");
     } else {
       Map<I18nLanguage, Map> localeJsonObjs = {};
       fsJsonAsset.localeJsonFiles.forEach((locale, jsonFile) {
