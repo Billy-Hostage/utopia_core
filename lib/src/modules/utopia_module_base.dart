@@ -17,14 +17,14 @@ abstract class ModuleBase {
   }
 
   void logInfo(String message, String src) {
-    world.lm.logInfo(message, src);
+    world.log.logInfo(message, src);
   }
 
   void logWarning(String message, String src) {
-    world.lm.logWarning(message, src);
+    world.log.logWarning(message, src);
   }
 
   void logError(String message, String src) {
-    world.lm.logError(message, src);
+    world.log.logError(message, src);
   }
 }

@@ -22,5 +22,6 @@ class OperationProcessor {
 
   void cancelCurrentOp(/* Reason */) {
     _currentTickingOperation = null;
+    // TODO reset progress
   }
 }

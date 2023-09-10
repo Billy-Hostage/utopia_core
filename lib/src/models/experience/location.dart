@@ -5,9 +5,9 @@ import '../data_types.dart';
 import '../../modules/logging/logging_module.dart';
 import '../../general_utils.dart';
 
-class ItemModel extends ExperienceModelBase {
-  ItemModel.fromFsJson(super.fsJsonAsset, super.lm) : super.fromFsJson();
-  ItemModel.fromFsJsonCore(super.fsJsonAsset, super.lm)
+class LocationModel extends ExperienceModelBase {
+  LocationModel.fromFsJson(super.fsJsonAsset, super.lm) : super.fromFsJson();
+  LocationModel.fromFsJsonCore(super.fsJsonAsset, super.lm)
       : super.fromFsJsonCore();
   @override
   bool get requireLocaleJson => true;
@@ -17,8 +17,11 @@ class ItemModel extends ExperienceModelBase {
   List<String> get tags => _tags;
   late final dynamic _additionalInfo;
   dynamic get additionalInfo => _additionalInfo;
-  late final int _maxOwnCount;
-  int get maxOwnCount => _maxOwnCount;
+
+  late final List<Selectable> _connectedLocations;
+  List<Selectable> get connectedLocations => _connectedLocations;
+  late final List<Selectable> _availableOperations;
+  List<Selectable> get availableOperations => _availableOperations;
 
   LocalizableString? _name;
   LocalizableString? get name => _name;
@@ -27,9 +30,12 @@ class ItemModel extends ExperienceModelBase {
 
   @override
   void deserializeFromJsonCore(baseJsonObject, LoggingModule lm) {
+    _availableOperations =
+        safeGetSelectableListFromMap(baseJsonObject, "availableOperations", "");
     _tags = List<String>.from(safeGetFieldFromMap(baseJsonObject, "tags", []));
     _additionalInfo = safeGetFieldFromMap(baseJsonObject, "additionalInfo", []);
-    _maxOwnCount = safeGetFieldFromMap(baseJsonObject, "maxOwnCount", -1);
+    _connectedLocations =
+        safeGetSelectableListFromMap(baseJsonObject, "connectedLocations", "");
   }
 
   @override
@@ -47,14 +53,14 @@ class ItemModel extends ExperienceModelBase {
 
   @override
   String toString() {
-    return "Item Model\n - Name:$assetName\n - Base Name:$assetBaseName\n - Display Name:${_name?.fallbackString}\n - Display Desc:${_desc?.fallbackString}";
+    return "Location Model\n - Name:$assetName\n - Base Name:$assetBaseName\n - Display Name:${_name?.fallbackString}\n - Display Desc:${_desc?.fallbackString}\n - Connected Loc:$_connectedLocations\n - Aops:$_availableOperations\n - Tags:$_tags";
   }
 
   String toLocalString(String lancode) {
-    return "Item Model\n - Name:$assetName\n - Base Name:$assetBaseName\n - Display Name:${_name?.getPreferredLocaleString([
+    return "Location Model\n - Name:$assetName\n - Base Name:$assetBaseName\n - Display Name:${_name?.getPreferredLocaleString([
           codeToI18n(lancode)
         ])}\n - Display Desc:${_desc?.getPreferredLocaleString([
           codeToI18n(lancode)
-        ])}";
+        ])}\n - Connected Loc:$_connectedLocations\n - Aops:$_availableOperations\n - Tags:$_tags";
   }
 }

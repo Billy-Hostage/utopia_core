@@ -17,7 +17,7 @@ class LibraryModule extends ModuleBase {
     logInfo("loading exp pack at $expPath", "LibraryModule/constructor");
 
     expModel = getAsset<ExperienceModel>(
-        "experience", world.lm, ExperienceModel.fromFsJsonCore,
+        "experience", world.log, ExperienceModel.fromFsJsonCore,
         loadLocaleJson: false)!;
 
     logInfo(

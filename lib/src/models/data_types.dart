@@ -3,6 +3,8 @@
 import 'dart:io';
 import '../modules/logging/logging_module.dart';
 
+typedef Selectable = dynamic; // means a possible type or it's typed selector
+
 class FileSystemJSONAsset {
   final String name;
   final File baseJsonFile;
@@ -31,7 +33,7 @@ enum I18nLanguage {
   //TODO more
 }
 
-I18nLanguage codeToI18n(String code, LoggingModule? lm) {
+I18nLanguage codeToI18n(String code, [LoggingModule? lm]) {
   final ccode = code.toLowerCase().replaceAll(RegExp(r'[_-]'), '');
   switch (ccode) {
     case 'enus':
@@ -117,5 +119,54 @@ class LocalizableStringList {
           .add(LocalizableString("$_uid[${_localizables.length}]", _lm));
     }
     _localizables[index].addLocale(locale, content);
+  }
+}
+
+enum SelectorConditionType {
+  hasFlag,
+  noFlag,
+  unknown,
+}
+
+SelectorConditionType strToCondType(String s, [LoggingModule? lm]) {
+  switch (s) {
+    case 'HAS_FLAG':
+      return SelectorConditionType.hasFlag;
+    case 'NO_FLAG':
+      return SelectorConditionType.noFlag;
+  }
+  if (lm != null) lm.logError("Unknown cond type $s", "types/strToCondType");
+  return SelectorConditionType.unknown;
+}
+
+class SelectorCondition {
+  final SelectorConditionType type;
+  String? flag;
+
+  SelectorCondition(Map input) : type = strToCondType(input['type']) {
+    if (type == SelectorConditionType.noFlag ||
+        type == SelectorConditionType.hasFlag) {
+      flag = input['flag'];
+    }
+  }
+
+  @override
+  String toString() {
+    return "SelectorCondition $type [$flag]";
+  }
+}
+
+class Selector<T> {
+  //Fields
+  final T value;
+  final SelectorCondition cond;
+
+  Selector(Map input, T defVal)
+      : value = input['value'],
+        cond = SelectorCondition(input['cond']);
+
+  @override
+  String toString() {
+    return "Selector val:[$value] cond:[$cond]";
   }
 }

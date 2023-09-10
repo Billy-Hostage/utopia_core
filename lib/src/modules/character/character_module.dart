@@ -18,7 +18,7 @@ class CharacterModule extends ModuleBase {
   }
   @override
   void tick(int tickIntervalMs) {
-    // tick player first
+    // tick player
     _playerCharacter.tickCharacter(tickIntervalMs);
 
     // TODO tick other Registered characters

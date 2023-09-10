@@ -27,8 +27,8 @@ void main() {
     });
 
     test('Item Load', () {
-      final outAsset = worldToTest?.lib.getAsset<ItemModel>(
-          'items/resources/wood', (worldToTest?.lm)!, ItemModel.fromFsJson,
+      final outAsset = worldToTest!.lib.getAsset<ItemModel>(
+          'items/resources/wood', worldToTest!.log, ItemModel.fromFsJson,
           loadLocaleJson: true);
       expect(outAsset, isNotNull);
       expect(outAsset!.requireLocaleJson, isTrue);
